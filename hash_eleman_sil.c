@@ -87,7 +87,7 @@ struct hash_tablosu *create_hash_table(int table_size, int multiplier) {
     return htable;
 }
 
-// Eleman silme fonksiyonu
+//BURAYA BAK!!
 void delete_from_hash_table(struct hash_tablosu *htable, char *anahtar) {
     int hash_index=hash(anahtar,htable->multiplier,htable->tablo_uzunlugu);
     struct cell **header=&((htable->tablo_basi+hash_index)->header);

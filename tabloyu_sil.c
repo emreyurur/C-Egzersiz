@@ -89,7 +89,7 @@ void print_hash_table(struct hash_tablosu *htable) {
     }
 }
 
-// Hash tablosunu silme fonksiyonu
+//BURAYA BAK!!
 void delete_hash_table(struct hash_tablosu *htable) {
     if (htable == NULL) {
         return; // Eğer hash tablosu zaten boşsa hiçbir şey yapma

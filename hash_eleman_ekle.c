@@ -29,7 +29,7 @@ unsigned int hash(char *s, int multiplier, int table_size) {
     return value;
 }
 
-
+//BURAYA BAK!!
 void insert_hash_table_single(struct hash_tablosu *htable struct cell *dugum){
     int hash_index=hash(dugum->anahtar,htable->multiplier,htable->tablo_uzunlugu);
     struct sell **header=&((htable->tablo_basi+hash_index)->header);
