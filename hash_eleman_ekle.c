@@ -30,22 +30,41 @@ unsigned int hash(char *s, int multiplier, int table_size) {
 }
 
 //BURAYA BAK!!
-void insert_hash_table_single(struct hash_tablosu *htable struct cell *dugum){
-    int hash_index=hash(dugum->anahtar,htable->multiplier,htable->tablo_uzunlugu);
-    struct sell **header=&((htable->tablo_basi+hash_index)->header);
-    
+void insert_hash_table_single(struct hash_tablosu *htable, struct cell *dugum){
+    int hash_index=hash(dugum->anahtar,htable->tablo_uzunlugu,htable->multiplier);
+    struct cell **header=&((htable->tablo_basi+hash_index)->header);
+
     struct cell *current=*header;
-     while(current!=NULL){
+    while(current!=0){
         if(strcmp(dugum->anahtar,current->anahtar)==0){
-            printf("Anahtar zaten var: %s\n",dugum->anahtar);
-            return;
+            printf("Anahtar zaten var:%s \n",dugum->anahtar);
         }
         current=current->next;
-     }
-     dugum->next=*header;
-     *header=dugum;
-     (htable->tablo_basi+hash_index)->count++;
+    }
+    dugum->next=*header;
+    *header=dugum;
+    (htable->tablo_basi+hash_index)->count++;
+
+    printf("Anahtar eklendi:%s \n",dugum->anahtar);
 }
+
+void insert_hash_table_single(struct hash_tablosu *htable,struct cell *dugum){
+    int hash_index=hash(dugum->anahtar,htable->multiplier,htable->tablo_uzunlugu);
+    struct cell **header=&((htable->tablo_basi+hash_index)->header);
+
+    struct cell *current=*header;
+    while(current!=NULL){
+        if(strcmp(dugum->anahtar,current->anahtar)==0){
+            printf("Anahtar zaten var:%s \n",dugum->anahtar);
+        }
+        current=current->next;
+    }
+    dugum->next=*header;
+    *header=dugum;
+    (htable->tablo_basi+hash_index)-->count++;
+    printf("Anahtar eklendi:%s \n",dugum->anahtar);
+}
+
 
 struct hash_tablosu *create_hash_table(int table_size, int multiplier) {
     struct hash_tablosu *hash_table = (struct hash_tablosu *)malloc(sizeof(struct hash_tablosu));

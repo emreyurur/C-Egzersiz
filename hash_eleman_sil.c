@@ -87,35 +87,54 @@ struct hash_tablosu *create_hash_table(int table_size, int multiplier) {
     return htable;
 }
 
-//BURAYA BAK!!
+// Eleman silme fonksiyonu
+void delete_from_hash_table(struct hash_tablosu *htable, char *anahtar) {
+    int hash_index = hash(anahtar, htable->multiplier, htable->tablo_uzunlugu);
+    struct cell **header = &(htable->tablo_basi[hash_index].header);
+
+    struct cell *current = *header;
+    struct cell *prev = NULL;
+    while (current != NULL) {
+        if (strcmp(current->anahtar, anahtar) == 0) {
+            if (prev == NULL) {
+                *header = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            free(current->anahtar);
+            free(current);
+            htable->tablo_basi[hash_index].count--;
+            printf("Anahtar silindi: %s\n", anahtar);
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+    printf("Anahtar bulunamadi: %s\n", anahtar);
+}
+
 void delete_from_hash_table(struct hash_tablosu *htable, char *anahtar) {
     int hash_index=hash(anahtar,htable->multiplier,htable->tablo_uzunlugu);
     struct cell **header=&((htable->tablo_basi+hash_index)->header);
-
+    
     struct cell *current=*header;
     struct cell *prev=NULL;
-    
-    while(current!=NULL){
+    while(current!=0){
         if(strcmp(current->anahtar,anahtar)==0){
             if(prev=NULL){
                 *header=current->next;
             }
-            else{;
+            else{
                 prev->next=current->next
             }
             free(current->anahtar);
             free(current);
-
-            (htable->tablo_basi+hash_index)->count--;
-            printf ("Anahtar silindi: %s\n",anahtar);
-            return;
+            (htable->tablo_basi+hash_index)->count--
         }
         prev=current;
-        current=current->next;
+        current=prev->next;
     }
-    
-
-    printf("Anahtar bulunamadı: %s\n", anahtar);
+    printf("Anahtar silindi:%s \n",anahtar);
 }
 
 // Hash tablosunu serbest bırakma fonksiyonu
@@ -143,7 +162,7 @@ int main() {
     insert_hash_table_single(hash_table, apple);
 
     struct cell *banana = (struct cell *)malloc(sizeof(struct cell));
-    banana->anahtar = strdup("banana");
+    banana->anahtar = strdup("muz");
     banana->next = NULL;
     insert_hash_table_single(hash_table, banana);
 
@@ -154,7 +173,7 @@ int main() {
 
     print_hash_table(hash_table);
 
-    delete_from_hash_table(hash_table, "banana");
+    delete_from_hash_table(hash_table, "muz");
     delete_from_hash_table(hash_table, "grape");
 
     print_hash_table(hash_table);
